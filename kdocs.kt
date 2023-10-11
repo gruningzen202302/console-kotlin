@@ -14,3 +14,7 @@ class Group<T>(val name: String) {
      */
     fun add(member: T): Int { ... }
 }
+fun fun main(args: Array<String>) {
+    val group = Group<Int>("Integers")
+    group.add(1)
+}
