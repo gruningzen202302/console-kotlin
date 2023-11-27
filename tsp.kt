@@ -1,7 +1,7 @@
 
 
 
-fun main(args: Array<String>) {   val group = Group<Int>("Integers")
+fun main() {
     println("TSP")
     val startingNode = 0
     val adjacentMatrix = arrayOf(
@@ -16,6 +16,11 @@ fun main(args: Array<String>) {   val group = Group<Int>("Integers")
             println(row.joinToString(" "))
         }
     }
+    fun swap( array:Array<Int>,i: Int, j: Int){
+        val temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
+    }
 
     fun allPermutations(arr: Array<Int>, l: Int, r: Int): ArrayList<Array<Int>> {
         val permutations = ArrayList<Array<Int>>()
@@ -23,9 +28,9 @@ fun main(args: Array<String>) {   val group = Group<Int>("Integers")
             permutations.add(arr.clone())
         } else {
             for (i in l..r) {
-                arr.swap(l, i)
+                swap(arr,l, i)
                 permutations.addAll(allPermutations(arr, l + 1, r))
-                arr.swap(l, i) // backtrack
+                swap(arr,l, i) // backtrack
             }
         }
         return permutations
@@ -42,13 +47,7 @@ fun main(args: Array<String>) {   val group = Group<Int>("Integers")
         allCombinations(arr, index, data, i + 1, combinations)
     }
 
-    fun Array<Int>.swap(i: Int, j: Int) {
-        val temp = this[i]
-        this[i] = this[j]
-        this[j] = temp
-    }
-    
-    fun permutations(array:Array<Int>):Array<Array<Int>>{
+    fun permutations(array:Array<Int>):Array<IntArray>{
         val size = array.size
         val theArray = Array(size){0}
         var iteration = 1
@@ -67,7 +66,12 @@ fun main(args: Array<String>) {   val group = Group<Int>("Integers")
                 ++iteration
             }
         }
-        return theArray
+        return arrayOf(
+            intArrayOf(0, 4, 1, 9),
+            intArrayOf(3, 0, 6, 11),
+            intArrayOf(4, 1, 0, 2),
+            intArrayOf(6, 5, -4, 0)
+        )
     }
 
     fun naiveSolution() {
@@ -93,7 +97,7 @@ fun main(args: Array<String>) {   val group = Group<Int>("Integers")
         println("Best path: $bestPath")
         println("Distance: $minDistance")
     }
-fun main(args: Array<String>) {
+fun main() {
     val arr = arrayOf(1, 2, 3)
     val permutations = allPermutations(arr, 0, arr.size - 1)
     for (perm in permutations) {
